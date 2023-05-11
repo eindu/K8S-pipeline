@@ -1,0 +1,24 @@
+pipeline {
+    agent any 
+	tools {
+		maven 'Maven home'
+		}
+    stages {
+        stage('SCM-Checkout') { 
+            steps {
+	        git branch: 'main', credentialsId: 'github-cred', 
+				url: 'https://github.com/eindu/K8S-pipeline.git'
+               }
+        }
+        stage('Maven-Clean-Compile') { 
+            steps {
+                sh 'mvn clean compile' 
+            }
+        }
+        stage('Maven-Package') { 
+            steps {
+                sh 'mvn package' 
+            }
+        }
+    }
+ }
